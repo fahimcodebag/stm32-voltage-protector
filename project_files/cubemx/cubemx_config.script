@@ -1,0 +1,21 @@
+load STM32F103C8Tx
+project name VoltageProtector
+project toolchain STM32CubeIDE
+project path D:\cubemx\VoltageProtector
+SetCopyLibrary "copy only"
+set mode USART1 Asynchronous
+set pin PA9 USART1_TX
+set pin PA10 USART1_RX
+set mode ADC1 IN0
+set mode ADC1 IN1
+set pin PA0 ADC1_IN0
+set pin PA1 ADC1_IN1
+set mode I2C1 I2C
+set pin PB6 I2C1_SCL
+set pin PB7 I2C1_SDA
+set pin PC13 GPIO_Output
+set pin PB1 GPIO_Output
+set pin PB10 GPIO_Input
+set pin PB11 GPIO_Input
+project generate
+exit
