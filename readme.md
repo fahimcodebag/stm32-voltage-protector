@@ -23,6 +23,20 @@ project_files/
 design_document.pdf  design document
 ```
 
+## Running the main simulation (Proteus 9)
+
+To run the final version of the project file, open the `with_matlab_grid.pdsprj` file project from `project_files/proteus/` directory, double-click the STM32F103C8 (U1)
+and point **Program File** at the `VoltageProtector_ac.elf` which is the final firmware file that was used. Check **OSC Frequency = 8M**. Other project files that was created along the way is also shared in the directory.
+
+| Project | Inputs | Use with |
+|---|---|---|
+| `proteus_config.pdsprj` | potentiometers on PA0/PA1 | `VoltageProtector.elf` |
+| `with_matlab_grid.pdsprj` | FILE generators on PA0/PA1 playing the MATLAB fault scenario | `VoltageProtector_ac.elf` |
+| `actual_circuit_with_pulldown_resistors.pdsprj` | push-button circuit with pull-down resistors | `VoltageProtector.elf` |
+
+The Virtual Terminal ("SERIAL MONITOR") is the host. Click inside it to type
+commands; the full command set is in `src/pc_app/protocol.md`.
+
 ## Hardware (pin map)
 
 | Pin | Function | Role |
@@ -61,20 +75,6 @@ from HSE at 8 MHz. For real hardware remove `-DPROTEUS_SIM=1`; `main.c` then
 configures the 72 MHz PLL.
 
 Prebuilt copies of both `.elf` files are in `project_files/proteus/`.
-
-## Running the simulation (Proteus 9)
-
-Open a project from `project_files/proteus/`, double-click the STM32F103C8 (U1)
-and point **Program File** at the `.elf` you want. Check **OSC Frequency = 8M**.
-
-| Project | Inputs | Use with |
-|---|---|---|
-| `proteus_config.pdsprj` | potentiometers on PA0/PA1 | `VoltageProtector.elf` |
-| `with_matlab_grid.pdsprj` | FILE generators on PA0/PA1 playing the MATLAB fault scenario | `VoltageProtector_ac.elf` |
-| `actual_circuit_with_pulldown_resistors.pdsprj` | push-button circuit with pull-down resistors | `VoltageProtector.elf` |
-
-The Virtual Terminal ("SERIAL MONITOR") is the host. Click inside it to type
-commands; the full command set is in `src/pc_app/protocol.md`.
 
 ### Potentiometer demo
 
