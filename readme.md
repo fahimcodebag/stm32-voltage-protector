@@ -37,45 +37,6 @@ and point **Program File** at the `VoltageProtector_ac.elf` which is the final f
 The Virtual Terminal ("SERIAL MONITOR") is the host. Click inside it to type
 commands; the full command set is in `src/pc_app/protocol.md`.
 
-## Hardware (pin map)
-
-| Pin | Function | Role |
-|---|---|---|
-| PA0 | ADC1_IN0 | line voltage sense (conditioned, 0-3.3 V) |
-| PA1 | ADC1_IN1 | load current sense (conditioned, 0-3.3 V) |
-| PA9 / PA10 | USART1 TX / RX | host link, 115200 8N1 |
-| PB1 | GPIO out | relay / switch drive, high = load connected |
-| PB6 / PB7 | GPIO (software I2C) | PCF8574 I2C backpack -> LCD1602, address 0x20 |
-| PB10 / PB11 | GPIO in | MODE / ADJUST buttons, active high (switch to 3.3 V, 10k pull-down) |
-| PC13 | GPIO out | fault LED, active low, lit while the load is disconnected |
-
-PCF8574 to LCD: P0 RS, P1 RW, P2 E, P4-P7 D4-D7.
-
-## Building the firmware
-
-Toolchain: the GNU Arm toolchain bundled with STM32CubeIDE 2.2.0
-(`arm-none-eabi-gcc` 14.3.1), on Windows. No IDE project is needed.
-
-```
-src\firmware\build.bat      ->  VoltageProtector.elf     (defaults for the potentiometer demo)
-src\firmware\build_ac.bat   ->  VoltageProtector_ac.elf  (defaults for the AC waveform demo)
-```
-
-Both also write `.hex` and `.bin`. If the toolchain is not at the path in
-`build.bat`, set `TC` to its `bin` folder first, e.g.
-`set TC=C:\...\tools\bin` then run the script. The linker warning
-"LOAD segment with RWX permissions" is expected.
-
-The two variants differ only in the settings used when flash holds no saved
-settings (see `src/pc_app/protocol.md`, Calibration presets).
-
-`PROTEUS_SIM=1` is set by `build.bat`: Proteus does not model the STM32F1 PLL
-and runs the core directly from the 8 MHz crystal, so this build runs SYSCLK
-from HSE at 8 MHz. For real hardware remove `-DPROTEUS_SIM=1`; `main.c` then
-configures the 72 MHz PLL.
-
-Prebuilt copies of both `.elf` files are in `project_files/proteus/`.
-
 ### Potentiometer demo
 
 With the DC defaults (0-3.3 V on PA0 maps to 0-400 V), the healthy band
@@ -115,6 +76,45 @@ current, relay state, and either the healthy band or the trip cause with the
 value measured at the trip.
 
 The same presses can be sent from the terminal with `KEY MODE` and `KEY ADJ`.
+
+## Hardware (pin map)
+
+| Pin | Function | Role |
+|---|---|---|
+| PA0 | ADC1_IN0 | line voltage sense (conditioned, 0-3.3 V) |
+| PA1 | ADC1_IN1 | load current sense (conditioned, 0-3.3 V) |
+| PA9 / PA10 | USART1 TX / RX | host link, 115200 8N1 |
+| PB1 | GPIO out | relay / switch drive, high = load connected |
+| PB6 / PB7 | GPIO (software I2C) | PCF8574 I2C backpack -> LCD1602, address 0x20 |
+| PB10 / PB11 | GPIO in | MODE / ADJUST buttons, active high (switch to 3.3 V, 10k pull-down) |
+| PC13 | GPIO out | fault LED, active low, lit while the load is disconnected |
+
+PCF8574 to LCD: P0 RS, P1 RW, P2 E, P4-P7 D4-D7.
+
+## Building the firmware
+
+Toolchain: the GNU Arm toolchain bundled with STM32CubeIDE 2.2.0
+(`arm-none-eabi-gcc` 14.3.1), on Windows. No IDE project is needed.
+
+```
+src\firmware\build.bat      ->  VoltageProtector.elf     (defaults for the potentiometer demo)
+src\firmware\build_ac.bat   ->  VoltageProtector_ac.elf  (defaults for the AC waveform demo)
+```
+
+Both also write `.hex` and `.bin`. If the toolchain is not at the path in
+`build.bat`, set `TC` to its `bin` folder first, e.g.
+`set TC=C:\...\tools\bin` then run the script. The linker warning
+"LOAD segment with RWX permissions" is expected.
+
+The two variants differ only in the settings used when flash holds no saved
+settings (see `src/pc_app/protocol.md`, Calibration presets).
+
+`PROTEUS_SIM=1` is set by `build.bat`: Proteus does not model the STM32F1 PLL
+and runs the core directly from the 8 MHz crystal, so this build runs SYSCLK
+from HSE at 8 MHz. For real hardware remove `-DPROTEUS_SIM=1`; `main.c` then
+configures the 72 MHz PLL.
+
+Prebuilt copies of both `.elf` files are in `project_files/proteus/`.
 
 ## Known issues and limitations
 
