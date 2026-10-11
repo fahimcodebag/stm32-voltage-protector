@@ -1,6 +1,6 @@
 # STM32 Voltage Protector
 
-FSMB Recruitment 2026, Phase 1. Firmware for an STM32F103C8 that monitors line
+FSMB Recruitment project. Firmware for an STM32F103C8 that monitors line
 voltage and load current, disconnects the load on under-voltage, over-voltage or
 over-current, reconnects it when the line has recovered, and lets the settings
 be changed from a computer (UART) or from the device (two buttons + 16x2 LCD).
