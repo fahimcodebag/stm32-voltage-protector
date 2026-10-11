@@ -27,6 +27,7 @@ design_document.pdf  design document
 
 To run the final version of the project file, open the `with_matlab_grid.pdsprj` file project from `project_files/proteus/` directory in proteus, double-click the STM32F103C8 (U1)
 and point **Program File** at the `VoltageProtector_ac.elf` which is the final firmware file that was used. Check **OSC Frequency = 8M**, **Clock Scale = Off** like in the image below. Other project files that was created along the way is also shared in the directory.
+
 <img width="640" height="646" alt="image" src="https://github.com/user-attachments/assets/0fd1afbc-4bc6-44cb-bf3b-9f45d55249b2" />
 
 | Project | Inputs | Use with |
