@@ -30,6 +30,8 @@ and point **Program File** at the `VoltageProtector_ac.elf` which is the final f
 
 <img width="640" height="646" alt="image" src="https://github.com/user-attachments/assets/0fd1afbc-4bc6-44cb-bf3b-9f45d55249b2" />
 
+After setting the firmware, double click the "File Generator" blocks named "AC voltage" and set the file path to "project_files/proteus_stimulus/pa0_voltage.txt" and tick the "Repeat Waveform" option and close the option. For the AC current, double click the "File Generator" block named "AC current" and set the file path to "project_files/proteus_stimulus/pa1_current.txt" and also tick the "Repeat Waveform" option.
+
 | Project | Inputs | Use with |
 |---|---|---|
 | `proteus_config.pdsprj` | potentiometers on PA0/PA1 | `VoltageProtector.elf` |
